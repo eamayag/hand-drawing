@@ -14,6 +14,7 @@ const SvgSketchCanvas = class extends React.Component {
       resetStore: new List(),
       redoStore: new List(),
       currentPaths: new List(),
+      pathsArray: [],
     };
 
     this.handlePointerDown = this.handlePointerDown.bind(this);
@@ -155,6 +156,18 @@ const SvgSketchCanvas = class extends React.Component {
     return new Promise((resolve, reject) => {
       try {
         resolve(currentPaths);
+        console.log('CURRENTPATHS', this.state.currentPaths)
+        //1. test conversion List object <--> Json
+        const pathsInfo = currentPaths.toArray();
+        const pathsToArray = [];
+        pathsInfo.forEach(e => {
+          pathsToArray.push(e.toJS())
+        })
+        this.setState(prevState => ({
+          pathsArray: pathsToArray}));
+        // console.log('PATHSToARRAY', pathsToArray)
+          console.log('pathsArray', this.state.pathsArray)
+        //2. store in DB
       } catch (e) {
         reject(e);
       }
@@ -162,9 +175,13 @@ const SvgSketchCanvas = class extends React.Component {
   }
 
   loadPaths(paths) {
+    const arrayToPaths = List.of(this.state.pathsArray);
+    console.log('arrayToPaths', arrayToPaths)
     this.setState(prevState => ({
       currentPaths: mergeDeep(prevState.currentPaths, paths),
+      // currentPaths: arrayToPaths
     }));
+
   }
 
   /* Finally!!! Render method */
