@@ -1,14 +1,12 @@
-# React-sketch-canvas demo testing
+# Free-hand-writing demo:
 
-Testing demo for free-hand-writing: 
+Testing npm package: [React Sketch canvas] (https://www.npmjs.com/package/react-sketch-canvas).
 
-npm package testing: [React Sketch canvas] (https://www.npmjs.com/package/react-sketch-canvas).
-
-[Create React App](https://github.com/facebook/create-react-app) based.
+[Create React App](https://github.com/facebook/create-react-app)-based.
 
 ## Running the app
 
-In the project directory:
+In the project directory: 
 
 ### `npm start`
 
