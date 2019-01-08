@@ -1,4 +1,4 @@
-# Free-hand-writing demo:
+# Free-hand-drawing demo:
 
 Testing npm package: [React Sketch canvas] (https://www.npmjs.com/package/react-sketch-canvas).
 
