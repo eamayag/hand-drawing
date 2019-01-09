@@ -2,6 +2,8 @@ import React from 'react';
 import { List, Map, mergeDeep } from 'immutable';
 import PropTypes from 'prop-types';
 import Canvas from './Canvas';
+const transit = require('transit-immutable-js');
+const Immutable = require('immutable');
 
 const SvgSketchCanvas = class extends React.Component {
   constructor(props) {
@@ -156,32 +158,24 @@ const SvgSketchCanvas = class extends React.Component {
     return new Promise((resolve, reject) => {
       try {
         resolve(currentPaths);
-        console.log('CURRENTPATHS', this.state.currentPaths)
-        //1. test conversion List object <--> Json
         const pathsInfo = currentPaths.toArray();
         const pathsToArray = [];
         pathsInfo.forEach(e => {
           pathsToArray.push(e.toJS())
         })
         this.setState(prevState => ({
-          pathsArray: pathsToArray}));
-        // console.log('PATHSToARRAY', pathsToArray)
-          console.log('pathsArray', this.state.pathsArray)
-        //2. store in DB
+          pathsArray: transit.toJSON(this.state.currentPaths)}));
       } catch (e) {
         reject(e);
       }
     });
   }
-
+  
   loadPaths(paths) {
-    const arrayToPaths = List.of(this.state.pathsArray);
-    console.log('arrayToPaths', arrayToPaths)
+    const listed = transit.fromJSON(this.state.pathsArray);
     this.setState(prevState => ({
-      currentPaths: mergeDeep(prevState.currentPaths, paths),
-      // currentPaths: arrayToPaths
+      currentPaths: mergeDeep(prevState.currentPaths, listed)
     }));
-
   }
 
   /* Finally!!! Render method */
